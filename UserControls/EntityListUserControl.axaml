@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:Tessera.UserControlViewModels"
+			 xmlns:local="clr-namespace:Tessera.UserControls"
+             x:Class="Tessera.UserControls.EntityListUserControl"
+			 x:DataType="vm:EntityListUserControlViewModel"
+			 x:Name="EntityListUserControll">
+	<!-- Static ViewModel Resource https://asp-blogs.azurewebsites.net/dwahlin/creating-a-silverlight-datacontext-proxy-to-simplify-data-binding-in-nested-controls -->
+	<UserControl.Resources>
+		<vm:EntityListUserControlViewModel x:Key="ViewModel" />
+	</UserControl.Resources>
+	<StackPanel>
+		<local:CustomListBox ItemsSource="{Binding Entities}" 
+							 Name="EntityListBox" 
+							 AutoScrollToSelectedItem="True" 
+							 SelectionMode="Multiple" 
+							 DragDrop.AllowDrop="True" 
+							 DoubleTapped="EntityOnDoubleClick" 
+							 Tapped="EntityOnClick"  
+							 Width="800"
+							 SelectedItem="{Binding SelectedEntity}">
+			<local:CustomListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid Name="myGrid" RowDefinitions="auto, auto">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" 
+								   Margin="6,10" 
+								   Text="{Binding Name}"
+								   IsVisible="{Binding !Editing}"/>
+						<TextBox Grid.Column="0"
+								 Margin="6,0"
+								 Text="{Binding Name}"
+								 KeyDown="EntityNameTextBox_KeyDown"
+								 PropertyChanged="EntityNameTextBox_PropertyChanged"
+								 LostFocus="EntityNameTextBox_LostFocus"
+								 IsVisible="{Binding Editing}" />
+						
+						<ItemsControl IsVisible="{Binding Source={StaticResource ViewModel},Path=DisplayTags}" Grid.Column="1" ItemsSource="{Binding Tags}" HorizontalAlignment="Left">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<WrapPanel />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Button Background="LightBlue" 
+											CornerRadius="5" 
+											Padding="5,2" 
+											Content="{Binding}"
+											Margin="2"
+											Foreground="Black" />
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+						
+					</Grid>
+				</DataTemplate>
+			</local:CustomListBox.ItemTemplate>
+			<local:CustomListBox.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Rename" Click="RenameFile" IsVisible="True" ></MenuItem>
+					<MenuItem Header="Delete (Unadded)" Click="DeleteEntities"></MenuItem>
+				</ContextMenu>
+			</local:CustomListBox.ContextMenu>
+		</local:CustomListBox>
+	</StackPanel>
+
+</UserControl>

@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450"
+			 xmlns:vm="using:Tessera.ViewModels"
+			 xmlns:uc="using:Tessera.UserControls"
+             x:Class="Tessera.Views.FileEntitySortingView"
+			 x:DataType="vm:FileEntitySortingViewModel">
+	<Design.DataContext>
+		<vm:FileEntitySortingViewModel/>
+	</Design.DataContext>
+	
+	<StackPanel Orientation="Horizontal">
+		<ContentControl Content="{Binding Tab1Content}" />
+		<ContentControl Content="{Binding Tab2Content}" />
+		<ContentControl Content="{Binding Tab3Content}" />
+	</StackPanel>
+</UserControl>

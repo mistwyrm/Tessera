@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:Tessera.UserControlViewModels"
+             x:Class="Tessera.UserControls.EntityDetailsUserControl"
+			 x:DataType="vm:EntityDetailsUserControlViewModel">
+	<StackPanel>
+		<TextBlock Text="{Binding Entity.Name}"
+				   Margin="10"/>
+		<WrapPanel HorizontalAlignment="Left">
+		<ItemsControl ItemsSource="{Binding Entity.Tags}" HorizontalAlignment="Left">
+			<!-- Use a WrapPanel to lay out tags in a flexible, wrapping layout -->
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<!-- Define how each tag will look -->
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Border Background="LightBlue"
+							CornerRadius="5"
+							Padding="5,2"
+							Margin="2">
+						
+						<TextBlock Text="{Binding}"
+								   Foreground="Black" />
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+		<TextBox IsVisible="{Binding AddingTag}"
+				 Name="NewTagTextBox"
+				 KeyDown="NewTagTextBox_KeyDown"
+				 PropertyChanged="NewTagTextBox_PropertyChanged"
+				 LostFocus="NewTagTextBox_LostFocus"></TextBox>
+		<Button IsVisible="{Binding !AddingTag}"
+				Click="AddTagButton_Click"
+			    Content="+" 
+				Padding="5,2"
+				Background="LightBlue"
+				Margin="2" />
+		</WrapPanel>
+		<TextBlock Text="{Binding Entity.Path}"/>
+	</StackPanel>
+</UserControl>

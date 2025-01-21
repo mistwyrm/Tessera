@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:Tessera.UserControlViewModels"
+			 xmlns:local="clr-namespace:Tessera.UserControls"
+             x:Class="Tessera.UserControls.FileListUserControl"
+			 x:DataType="vm:FileListUserControlViewModel">
+	<StackPanel>
+
+		<StackPanel Orientation="Horizontal">
+			
+			<Button IsVisible="{Binding DisplayBackButton}" Command="{Binding BackButtonOnClickCommand}">Back</Button>
+			<Button Command="{Binding AddFilesOnClickCommand}">Add Files</Button>
+			<TextBlock Text="{Binding EntityName}" IsVisible="{Binding EntityName, Converter={x:Static ObjectConverters.IsNotNull}}"></TextBlock>
+			<Button Click="SearchClick">Search</Button>
+			<TextBox Name="SearchQuery" Text="{Binding SearchQuery}"></TextBox>
+		</StackPanel>
+		<local:CustomListBox ItemsSource="{Binding Files}" Name="FileListBox" AutoScrollToSelectedItem="True" SelectionMode="Multiple" DragDrop.AllowDrop="True" DragEnabled="true" Tapped="FileOnClick" SelectedItem="{Binding SelectedFile}">
+			<local:CustomListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid Name="myGrid" RowDefinitions="auto, auto">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="400" />
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" 
+								   Margin="6,0" 
+								   Text="{Binding Name}"
+								   IsVisible="{Binding !Editing}" />
+						<TextBox Grid.Column="0" 
+								 Margin="6,0" 
+								 Text="{Binding Name}"
+								 KeyDown="FileNameTextBox_KeyDown"
+								 PropertyChanged="FileNameTextBox_PropertyChanged"
+								 LostFocus="FileNameTextBox_LostFocus"
+								 IsVisible="{Binding Editing}" />
+					</Grid>
+				</DataTemplate>
+			</local:CustomListBox.ItemTemplate>
+			<local:CustomListBox.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Rename" Click="RenameFile" IsVisible="True" ></MenuItem>
+					<MenuItem Header="Remove from entity" Click="RemoveFilesFromEntity" IsVisible="{Binding EntityId, Converter={x:Static ObjectConverters.IsNotNull}}"></MenuItem>
+					<MenuItem Header="Delete (Unadded)" Click="DeleteFiles"></MenuItem>
+				</ContextMenu>
+			</local:CustomListBox.ContextMenu>
+		</local:CustomListBox>
+	</StackPanel>
+
+</UserControl>
