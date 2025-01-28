@@ -104,9 +104,29 @@ namespace Tessera.UserControls
             
         }
 
+        public void OpenFile(object sender, RoutedEventArgs args)
+        {
+            ((FileListUserControlViewModel)DataContext).OpenFile();
+        }
+
+        public void OpenFileWith(object sender, RoutedEventArgs args)
+        {
+            ((FileListUserControlViewModel)DataContext).OpenFileWith();
+        }
+
+        public void OpenFileLocation(object sender, RoutedEventArgs args)
+        {
+            ((FileListUserControlViewModel)DataContext).OpenFileLocation();
+        }
+
         private void FileOnClick(object? sender, TappedEventArgs e)
         {
             ((FileListUserControlViewModel)DataContext).ItemClicked();
+        }
+
+        private void FileOnDoubleClick(object? sender, TappedEventArgs e)
+        {
+            ((FileListUserControlViewModel)DataContext).OpenFile();
         }
 
         private void FileNameTextBox_LostFocus(object? sender, RoutedEventArgs e)

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 
@@ -9,4 +8,8 @@ public interface IFilesService
 {
     public Task<IReadOnlyList<IStorageFile?>> OpenFilesAsync();
     public Task<IStorageFile?> SaveFileAsync();
+
+    public void OpenFolderAndSelectFile(string path);
+
+    public void OpenFileWithDialog(string path);
 }

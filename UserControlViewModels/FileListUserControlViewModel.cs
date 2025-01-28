@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -60,6 +61,7 @@ namespace Tessera.UserControlViewModels
         public bool _displayBackButton = false;
 
         IFileEntityRelationsService? FileEntityRelationsService = App.Current?.Services?.GetService<IFileEntityRelationsService>();
+        IFilesService? FilesService = App.Current?.Services?.GetService<IFilesService>();
 
         public event EventHandler<string>? BackButtonClicked;
         public event EventHandler<string>? RefreshDataTriggered;
@@ -75,6 +77,50 @@ namespace Tessera.UserControlViewModels
         {
             FileClicked?.Invoke(this, String.Empty);
         }
+
+
+
+        public void OpenFileLocation()
+        {
+            if (File.Exists(SelectedFile.Path))
+            {
+                if (File.Exists(SelectedFile.Path))
+                {
+                    FilesService.OpenFolderAndSelectFile(SelectedFile.Path);
+                }
+            }
+            else
+            {
+                /// Add error message if file does not exist
+            }
+        }
+
+        public void OpenFileWith()
+        {
+            if (File.Exists(SelectedFile.Path))
+            {
+                FilesService.OpenFileWithDialog(SelectedFile.Path);
+            }
+            else
+            {
+                /// Add error message if file does not exist
+            }
+        }
+
+        public void OpenFile()
+        {
+            if (File.Exists(SelectedFile.Path)) {
+                Process.Start(new ProcessStartInfo(){
+                    FileName = SelectedFile.Path,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                /// Add error message if file does not exist
+            }
+        }
+
 
 
         public FileListUserControlViewModel()

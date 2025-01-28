@@ -17,7 +17,7 @@
 			<Button Click="SearchClick">Search</Button>
 			<TextBox Name="SearchQuery" Text="{Binding SearchQuery}"></TextBox>
 		</StackPanel>
-		<local:CustomListBox ItemsSource="{Binding Files}" Name="FileListBox" AutoScrollToSelectedItem="True" SelectionMode="Multiple" DragDrop.AllowDrop="True" DragEnabled="true" Tapped="FileOnClick" SelectedItem="{Binding SelectedFile}">
+		<local:CustomListBox ItemsSource="{Binding Files}" Name="FileListBox" AutoScrollToSelectedItem="True" SelectionMode="Multiple" DragDrop.AllowDrop="True" DragEnabled="true" Tapped="FileOnClick" DoubleTapped="FileOnDoubleClick" SelectedItem="{Binding SelectedFile}">
 			<local:CustomListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid Name="myGrid" RowDefinitions="auto, auto">
@@ -40,9 +40,13 @@
 			</local:CustomListBox.ItemTemplate>
 			<local:CustomListBox.ContextMenu>
 				<ContextMenu>
+					<MenuItem Header="Open File" Click="OpenFile"></MenuItem>
+					<MenuItem Header="Open File With..." Click="OpenFileWith"></MenuItem>
+					<MenuItem Header="Open File Location" Click="OpenFileLocation"></MenuItem>
 					<MenuItem Header="Rename" Click="RenameFile" IsVisible="True" ></MenuItem>
 					<MenuItem Header="Remove from entity" Click="RemoveFilesFromEntity" IsVisible="{Binding EntityId, Converter={x:Static ObjectConverters.IsNotNull}}"></MenuItem>
 					<MenuItem Header="Delete (Unadded)" Click="DeleteFiles"></MenuItem>
+					
 				</ContextMenu>
 			</local:CustomListBox.ContextMenu>
 		</local:CustomListBox>
