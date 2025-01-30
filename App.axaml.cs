@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Tessera.ViewModels;
 using Tessera.Views;
 using System;
+using Avalonia.Controls.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tessera
 {
@@ -21,21 +23,19 @@ namespace Tessera
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                // Line below is needed to remove Avalonia data validation.
-                // Without this line you will get duplicate validations from both Avalonia and CT
                 var services = new ServiceCollection();
                 services.AddSingleton<IFilesService>(x => new FilesService(desktop.MainWindow));
                 services.AddSingleton<IFileEntityRelationsService>(x => new FileEntityRelationsService());
                 Services = services.BuildServiceProvider();
 
+                // Line below is needed to remove Avalonia data validation.
+                // Without this line you will get duplicate validations from both Avalonia and CT
                 BindingPlugins.DataValidators.RemoveAt(0);
+                
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel(),
                 };
-
-
-                
             }
 
             base.OnFrameworkInitializationCompleted();

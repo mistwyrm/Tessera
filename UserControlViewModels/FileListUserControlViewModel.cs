@@ -60,8 +60,7 @@ namespace Tessera.UserControlViewModels
         [ObservableProperty]
         public bool _displayBackButton = false;
 
-        IFileEntityRelationsService? FileEntityRelationsService = App.Current?.Services?.GetService<IFileEntityRelationsService>();
-        IFilesService? FilesService = App.Current?.Services?.GetService<IFilesService>();
+        IFileEntityRelationsService FileEntityRelationsService = App.Current?.Services?.GetService<IFileEntityRelationsService>();
 
         public event EventHandler<string>? BackButtonClicked;
         public event EventHandler<string>? RefreshDataTriggered;
@@ -82,6 +81,7 @@ namespace Tessera.UserControlViewModels
 
         public void OpenFileLocation()
         {
+            IFilesService FilesService = App.Current?.Services?.GetService<IFilesService>();
             if (File.Exists(SelectedFile.Path))
             {
                 if (File.Exists(SelectedFile.Path))
@@ -97,6 +97,7 @@ namespace Tessera.UserControlViewModels
 
         public void OpenFileWith()
         {
+            IFilesService FilesService = App.Current?.Services?.GetService<IFilesService>();
             if (File.Exists(SelectedFile.Path))
             {
                 FilesService.OpenFileWithDialog(SelectedFile.Path);
@@ -109,6 +110,7 @@ namespace Tessera.UserControlViewModels
 
         public void OpenFile()
         {
+            IFilesService FilesService = App.Current?.Services?.GetService<IFilesService>();
             if (File.Exists(SelectedFile.Path)) {
                 Process.Start(new ProcessStartInfo(){
                     FileName = SelectedFile.Path,
