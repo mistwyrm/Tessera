@@ -11,7 +11,7 @@
 		<vm:FileEntitySortingViewModel/>
 	</Design.DataContext>
 	
-	<StackPanel Orientation="Horizontal">
+	<StackPanel Orientation="Horizontal" Height="{Binding ClientSize.Height, RelativeSource={RelativeSource AncestorType=Window}}">
 		<ContentControl Content="{Binding Tab1Content}" />
 		<ContentControl Content="{Binding Tab2Content}" />
 		<ContentControl Content="{Binding Tab3Content}" />

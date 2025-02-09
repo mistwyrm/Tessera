@@ -21,7 +21,9 @@
 							 DoubleTapped="EntityOnDoubleClick" 
 							 Tapped="EntityOnClick"  
 							 Width="800"
-							 SelectedItem="{Binding SelectedEntity}">
+							 SelectedItem="{Binding SelectedEntity}"
+							 ScrollViewer.AllowAutoHide="False" 
+							 ScrollViewer.VerticalScrollBarVisibility="Auto">
 			<local:CustomListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid Name="myGrid" RowDefinitions="auto, auto">

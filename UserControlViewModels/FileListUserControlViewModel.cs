@@ -236,6 +236,7 @@ namespace Tessera.UserControlViewModels
             if (FileEntityRelationsService is null)
                 throw new NullReferenceException("Missing FileEntityRelationsService instance.");
             await FileEntityRelationsService.ImportFiles(files, EntityId);
+            RefreshData();
         }
 
         [RelayCommand]

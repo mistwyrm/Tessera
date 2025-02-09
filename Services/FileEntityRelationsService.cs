@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -98,8 +96,12 @@ namespace Tessera.Services
                 {
                     Id = reader.GetInt32("entity_id"),
                     Name = reader.GetString("entity_name"),
-                    Tags = new ObservableCollection<string>(reader.GetString("tags").Split(","))
+                    IsGhost = reader.GetByte("entity_is_ghost") == 1,
                 };
+                if(!reader.IsDBNull(reader.GetOrdinal("tags")))
+                {
+                    entity.Tags = new ObservableCollection<string>(reader.GetString("tags").Split(","));
+                }
                 Entities.Add(entity);
             }
 
@@ -124,6 +126,7 @@ namespace Tessera.Services
             {
                 Id = reader.GetInt32("entity_id"),
                 Name = reader.GetString("entity_name"),
+                IsGhost = reader.GetByte("entity_is_ghost") == 1,
             };
 
             return entity;

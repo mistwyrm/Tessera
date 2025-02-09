@@ -7,9 +7,9 @@
 			 xmlns:local="clr-namespace:Tessera.UserControls"
              x:Class="Tessera.UserControls.FileListUserControl"
 			 x:DataType="vm:FileListUserControlViewModel">
-	<StackPanel>
+	<DockPanel LastChildFill="True">
 
-		<StackPanel Orientation="Horizontal">
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
 			
 			<Button IsVisible="{Binding DisplayBackButton}" Command="{Binding BackButtonOnClickCommand}">Back</Button>
 			<Button Command="{Binding AddFilesOnClickCommand}">Add Files</Button>
@@ -17,7 +17,17 @@
 			<Button Click="SearchClick">Search</Button>
 			<TextBox Name="SearchQuery" Text="{Binding SearchQuery}"></TextBox>
 		</StackPanel>
-		<local:CustomListBox ItemsSource="{Binding Files}" Name="FileListBox" AutoScrollToSelectedItem="True" SelectionMode="Multiple" DragDrop.AllowDrop="True" DragEnabled="true" Tapped="FileOnClick" DoubleTapped="FileOnDoubleClick" SelectedItem="{Binding SelectedFile}">
+		<local:CustomListBox ItemsSource="{Binding Files}"
+							 Name="FileListBox" 
+							 AutoScrollToSelectedItem="True" 
+							 SelectionMode="Multiple" 
+							 DragDrop.AllowDrop="True" 
+							 DragEnabled="true" 
+							 Tapped="FileOnClick" 
+							 DoubleTapped="FileOnDoubleClick" 
+							 SelectedItem="{Binding SelectedFile}"
+							 ScrollViewer.AllowAutoHide="False" 
+							 ScrollViewer.VerticalScrollBarVisibility="Auto" >
 			<local:CustomListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid Name="myGrid" RowDefinitions="auto, auto">
@@ -50,6 +60,6 @@
 				</ContextMenu>
 			</local:CustomListBox.ContextMenu>
 		</local:CustomListBox>
-	</StackPanel>
+	</DockPanel>
 
 </UserControl>

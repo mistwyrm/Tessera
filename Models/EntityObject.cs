@@ -15,7 +15,10 @@ namespace Tessera.Models
         private string? _path;
 
         [ObservableProperty]
-        private ObservableCollection<string>? _tags;
+        private ObservableCollection<string>? _tags = new ObservableCollection<string>();
+
+        [ObservableProperty]
+        private bool _isGhost;
 
         [ObservableProperty]
         private bool _editing = false;
